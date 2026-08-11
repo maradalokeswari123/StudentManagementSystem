@@ -4,7 +4,7 @@ public class DBConnection{
     public static Connection getConnection(){
         try{
             Connection con=DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/student_db",
+                "jdbc:mysql://localhost:3306/studentdb",
                 "root",
                 ""
             );
