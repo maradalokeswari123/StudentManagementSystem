@@ -56,4 +56,24 @@ public class StudentDAO{
             e.printStackTrace();
         }
     }
+        public void updateStudent(int id,String name,int age){
+            try{
+                Connection con=DBConnection.getConnection();
+                String sql="UPDATE students SET name=?, age=? WHERE id=?";
+                PreparedStatement ps=con.prepareStatement(sql);
+                ps.setString(1,name);
+                ps.setInt(2,age);
+                ps.setInt(3,id);
+                int row=ps.executeUpdate();
+                if(row>0){
+                    System.out.println("Student Updated Successfully!"); 
+                }else{
+                    System.out.println("Student not Found!");
+                }
+                con.close();
+            }catch(Exception e){
+                    e.printStackTrace();
+                }
+        }
+    
     }
