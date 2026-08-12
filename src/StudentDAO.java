@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 public class StudentDAO{
     public void addStudent(Student student){
         try{
@@ -19,7 +20,40 @@ public class StudentDAO{
         e.printStackTrace();
         }
     }
-       
-        
-
+        public void viewStudents(){
+            try{
+                Connection con=DBConnection.getConnection();
+                String sql="SELECT * FROM students";
+                PreparedStatement ps=con.prepareStatement(sql);
+                ResultSet rs=ps.executeQuery();
+                while(rs.next()){
+                    System.out.println("------------------");
+                    System.out.println("Id  : "+rs.getInt("id"));
+                    System.out.println("Name : "+rs.getString("name"));
+                    System.out.println("Age : "+rs.getInt("age"));
+                }
+                con.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }   
+    }
+    public void searchStudent(int id){
+        try{
+            Connection con=DBConnection.getConnection();
+            String sql="SELECT * FROM students WHERE id=?";
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1,id);
+            ResultSet rs=ps.executeQuery();
+             if(rs.next()) {
+                System.out.println("Id : "+rs.getInt("id"));
+                System.out.println("Name : "+rs.getString("name"));
+                System.out.println("Age : "+rs.getInt("age"));                
+            }else{
+                System.out.println("Student not found!");
+            }
+            con.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     }
