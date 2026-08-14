@@ -1,6 +1,10 @@
+package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import util.DBConnection;
+
+import model.Student;
 public class StudentDAO{
     public void addStudent(Student student){
         try{
@@ -74,6 +78,26 @@ public class StudentDAO{
             }catch(Exception e){
                     e.printStackTrace();
                 }
+        }
+        public void deleteStudent(int id){
+            try{
+                Connection con=DBConnection.getConnection();
+                String sql="DELETE FROM students WHERE id=?";
+                PreparedStatement ps=con.prepareStatement(sql);
+                ps.setInt(1,id);
+                int row=ps.executeUpdate();
+                if(row>0){
+                    System.out.println("Student Deleted Successfully!");
+                }else{
+                    System.out.println("Student not Found!");
+                }
+                con.close();
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
+
         }
     
     }
