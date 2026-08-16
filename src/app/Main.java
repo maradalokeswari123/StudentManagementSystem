@@ -8,7 +8,7 @@ public class Main {
         Scanner sc=new Scanner(System.in);
         StudentDAO dao=new StudentDAO();
         
-        int choice;
+        int choice=0;
         do{
             System.out.println("-----------------------------");
         System.out.println("  STUDENT MANAGEMENT SYSTEM                            ");
@@ -19,17 +19,45 @@ public class Main {
         System.out.println("4.Update Student");
         System.out.println("5.Delete Student");
         System.out.println("6.Exit");
-        System.out.println("Enter your choice: ");
+        System.out.print("Enter your choice: ");
+        if(!sc.hasNextInt()){
+            System.out.println("Please enter a number");
+            sc.nextLine();
+            continue;
+        }
         
         choice=sc.nextInt();
+        if(choice<1 ||  choice>6){
+            System.out.println("Invalid choice! please enter 1-6");
+            continue;
+        }
         
             switch(choice){
             case 1:{
                 sc.nextLine();
                 System.out.print("Enter Name: ");
                 String name=sc.nextLine();
+                if(name.trim().isEmpty()){
+                    System.out.println("please enter a name.");
+                    break;
+                }
+                if(!name.matches("[a-zA-Z ]+")){
+                    System.out.println("Name Should Contain only letters");
+                    break;
+                }
+                
                 System.out.print("Enter Age: ");
+                
+                if(!sc.hasNextInt()){
+                    System.out.println("Please enter a valid number.");
+                    sc.nextLine();
+                    break;
+                }
                 int age=sc.nextInt();
+                if(age<=0){
+                    System.out.println("Age must be greater than 0.");
+                    break;
+                }
                 Student student=new Student(0,name,age);
                 dao.addStudent(student);
                 // System.out.println("Added Student successfully!");
@@ -41,7 +69,16 @@ public class Main {
                 break;
             case 3:{
                 System.out.print("Enter User Id: ");
+                if(!sc.hasNextInt()){
+                    System.out.println("please enter a valid ID.");
+                    sc.nextLine();
+                    break;
+                }
                 int id=sc.nextInt();
+                if(id<=0){
+                    System.out.println("Id must be greatre than 0.");
+                    break;
+                }
                 dao.searchStudent(id);
                 //System.out.println("search Student selected");
                 break;
@@ -49,19 +86,54 @@ public class Main {
             case 4:
                 {
                     System.out.print("Enter ID: ");
+                    if(!sc.hasNextInt()){
+                    System.out.println("please enter a valid ID.");
+                    sc.nextLine();
+                    break;
+                }
                 int id=sc.nextInt();
+                 if(id<=0){
+                    System.out.println("Id must be greatre than 0.");
+                    break;
+                }
                 sc.nextLine();
                 System.out.print("Enter Name: ");
                 String name=sc.nextLine();
+                if(name.trim().isEmpty()){
+                    System.out.println("Please enter a name.");
+                    break;
+                }
+                if(!name.matches("[a-zA-Z ]+")){
+                    System.out.println("Name Should contain only letters");
+                    break;
+                }
                 System.out.print("Enter Age: ");
+                 if(!sc.hasNextInt()){
+                    System.out.println("Please enter a valid number.");
+                    sc.nextLine();
+                    break;
+                }
                 int age=sc.nextInt();
+                if(age<=0){
+                    System.out.println("Age must be greater than 0.");
+                    break;
+                }
                 dao.updateStudent(id, name, age);
                 //System.out.println("Student update Student ");
                 break;
         }
             case 5:{
                 System.out.print("Enter ID : ");
+                if(!sc.hasNextInt()){
+                    System.out.println("please enter a valid ID.");
+                    sc.nextLine();
+                    break;
+                }
                 int id=sc.nextInt();
+                 if(id<=0){
+                    System.out.println("Id must be greatre than 0.");
+                    break;
+                }
                 dao.deleteStudent(id);
                 break;
             }
