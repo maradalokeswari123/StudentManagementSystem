@@ -15,10 +15,11 @@ public class Main {
         System.out.println("-----------------------------");
         System.out.println("1.Add Student");
         System.out.println("2.View Student");
-        System.out.println("3.Serach Student");
-        System.out.println("4.Update Student");
-        System.out.println("5.Delete Student");
-        System.out.println("6.Exit");
+        System.out.println("3.Serach Student By ID");
+        System.out.println("4.Search Student By Name");
+        System.out.println("5.Update Student");
+        System.out.println("6.Delete Student");
+        System.out.println("7.Exit");
         System.out.print("Enter your choice: ");
         if(!sc.hasNextInt()){
             System.out.println("Please enter a number");
@@ -27,8 +28,8 @@ public class Main {
         }
         
         choice=sc.nextInt();
-        if(choice<1 ||  choice>6){
-            System.out.println("Invalid choice! please enter 1-6");
+        if(choice<1 ||  choice>7){
+            System.out.println("Invalid choice! please enter 1-7");
             continue;
         }
         
@@ -80,12 +81,27 @@ public class Main {
                     break;
                 }
                 dao.searchStudent(id);
-                //System.out.println("search Student selected");
                 break;
             }
             case 4:
                 {
-                    System.out.print("Enter ID: ");
+                  sc.nextLine();
+                System.out.print("enter Student name: ");
+                String name=sc.nextLine();
+                if(name.trim().isEmpty()){
+                    System.out.println("please enter a name.");
+                    break;
+                }
+                if(!name.matches("[a-zA-Z ]+")){
+                    System.out.println("Name should contain only letters.");
+                    break;
+                }
+                dao.searchStudentByName(name);
+                break;  
+        }
+            case 5:{
+               
+ System.out.print("Enter ID: ");
                     if(!sc.hasNextInt()){
                     System.out.println("please enter a valid ID.");
                     sc.nextLine();
@@ -121,8 +137,9 @@ public class Main {
                 dao.updateStudent(id, name, age);
                 //System.out.println("Student update Student ");
                 break;
-        }
-            case 5:{
+
+            }
+            case 6:{
                 System.out.print("Enter ID : ");
                 if(!sc.hasNextInt()){
                     System.out.println("please enter a valid ID.");
@@ -138,7 +155,7 @@ public class Main {
                 break;
             }
                 
-            case 6:
+            case 7:
                 System.out.print("Thank You!");
                 break;
                 default:
@@ -146,7 +163,7 @@ public class Main {
                     break;
         }
         
-        }while (choice!=6);
+        }while (choice!=7);
         sc.close();
     }
     

@@ -63,6 +63,29 @@ public class StudentDAO{
             e.printStackTrace();
         }
     }
+        public void searchStudentByName(String name){
+                String sql="SELECT * FROM students WHERE name LIKE ?";
+                try(Connection con=DBConnection.getConnection();
+                    PreparedStatement ps=con.prepareStatement(sql)){
+                        ps.setString(1,"%"+name+"%");
+                        try(ResultSet rs=ps.executeQuery()){
+                            boolean found=false;
+                            while(rs.next()){
+                                found=true;
+                                System.out.println("----------------------");
+                                       System.out.println("Id : "+rs.getInt("id"));
+                                        System.out.println("Name : "+rs.getString("name"));
+                                        System.out.println("Age : "+rs.getInt("age"));                
+                                    }if(!found){
+                                        System.out.println("Student not found!");
+                                    }
+
+                            }
+
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+        }
         public void updateStudent(int id,String name,int age){
             String sql="UPDATE students SET name=?, age=? WHERE id=?";
             try(Connection con=DBConnection.getConnection();
