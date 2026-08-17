@@ -1,18 +1,13 @@
 package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 public class DBConnection{
-    public static Connection getConnection(){
-        try{
-            Connection con=DriverManager.getConnection(
+    public static Connection getConnection() throws SQLException{
+       return DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/studentdb",
                 "root",
                 ""
-            );
-            return con;
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            return null;
-        }
+       );
     }
 }

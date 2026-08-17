@@ -44,18 +44,21 @@ public class StudentDAO{
     public void searchStudent(int id){
         String sql="SELECT * FROM students WHERE id=?";
         try(   Connection con=DBConnection.getConnection();
-            PreparedStatement ps=con.prepareStatement(sql);
-        ResultSet rs=ps.executeQuery()){
+            PreparedStatement ps=con.prepareStatement(sql)
+        ){
          
             ps.setInt(1,id);
-            
-             if(rs.next()) {
-                System.out.println("Id : "+rs.getInt("id"));
-                System.out.println("Name : "+rs.getString("name"));
-                System.out.println("Age : "+rs.getInt("age"));                
-            }else{
-                System.out.println("Student not found!");
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()) {
+                                System.out.println("Id : "+rs.getInt("id"));
+                                System.out.println("Name : "+rs.getString("name"));
+                                System.out.println("Age : "+rs.getInt("age"));                
+                            }else{
+                                System.out.println("Student not found!");
+                            }
             }
+            
+            
         }catch(Exception e){
             e.printStackTrace();
         }
